@@ -7,7 +7,7 @@ const {
   genid
 } = require("../db/DbUtils");
 
-router.post("/rich_editor_upload", async (req, res) => {
+router.post("/_token/rich_editor_upload", async (req, res) => {
   if (!req.files) {
     return res.send({
       "errno": 1, // 只要不等于 0 就行

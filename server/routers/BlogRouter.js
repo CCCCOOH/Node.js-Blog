@@ -95,7 +95,7 @@ router.get("/search", async (req, res) => {
 })
 
 // 添加博客
-router.post("/add", async (req, res) => {
+router.post("/_token/add", async (req, res) => {
   let {
     title,
     categoryId,
@@ -127,7 +127,7 @@ router.post("/add", async (req, res) => {
 })
 
 // 修改博客
-router.put("/update", async (req, res) => {
+router.put("/_token/update", async (req, res) => {
   let {
     title,
     categoryId,
@@ -141,7 +141,8 @@ router.put("/update", async (req, res) => {
     err,
     rows
   } = await db.async.run(update_sql, params)
-
+  console.log(err, rows);
+  
   if (err == null) {
     // 如果没有错误，表示正确✅
     res.send({
@@ -158,7 +159,7 @@ router.put("/update", async (req, res) => {
 })
 
 // 删除接口 传入 id
-router.delete("/delete", async (req, res) => {
+router.delete("/_token/delete", async (req, res) => {
   let id = req.query.id // 直接写URL：category/delete?id=xxx
   const delete_sql = "DELETE FROM `blog` WHERE `id` = ?"
   let {

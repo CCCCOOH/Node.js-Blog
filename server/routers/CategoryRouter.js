@@ -40,7 +40,7 @@ router.get("/list", async (req, res) => {
 })
 
 // 添加接口 传入 name
-router.post("/add", async (req, res) => {
+router.post("/_token/add", async (req, res) => {
   let {
     name
   } = req.body;
@@ -64,17 +64,25 @@ router.post("/add", async (req, res) => {
 })
 
 // 修改接口 传入 id, name
-router.put("/update", async (req, res) => {
-  let {
-    id,
-    name
-  } = req.body
+router.put("/_token/update", async (req, res) => {
+  // let { token } = req.headers;
+
+  // let admin_token_sql = "SELECT * FROM `admin` WHERE `token` = ?";
+  // let adminResult = await db.async.all(admin_token_sql, [token])
+  // if (adminResult.err != null || adminResult.rows.length == 0) {
+  //   return res.send({
+  //     code: 403,
+  //     msg: "请先登录"
+  //   })
+  // }
+  
+  let { id,name } = req.body
+
   const update_sql = "UPDATE `category` SET `name` = ? WHERE `id` = ?"
   let {
     err,
     rows
   } = await db.async.run(update_sql, [name, id])
-  console.log("修改category收到的id,name: ", id, name);
   
   if (err == null) {
     // ✅
@@ -92,7 +100,7 @@ router.put("/update", async (req, res) => {
 })
 
 // 删除接口 传入 id
-router.delete("/delete", async (req, res) => {
+router.delete("/_token/delete", async (req, res) => {
   let id = req.query.id // 直接写URL：category/delete?id=xxx
   const delete_sql = "DELETE FROM `category` WHERE `id` = ?"
   let {
