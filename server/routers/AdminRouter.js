@@ -20,14 +20,7 @@ router.post("/login", async (req, res) => {
     let admin_info = rows[0]
     admin_info.token = login_token
     admin_info.password = "密码包不让你看的..."
-    const sleep = () => {
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve()
-        }, 3000);
-      })
-    }
-    await sleep();
+    
     res.send({
       code: 200,
       msg: "登录成功",

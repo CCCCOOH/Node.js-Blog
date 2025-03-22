@@ -7,7 +7,7 @@ const {
   genid
 } = require("../db/DbUtils");
 
-router.post("/_token/rich_editor_upload", async (req, res) => {
+router.post("/rich_editor_upload", async (req, res) => {
   if (!req.files) {
     return res.send({
       "errno": 1, // 只要不等于 0 就行
@@ -35,7 +35,7 @@ router.post("/_token/rich_editor_upload", async (req, res) => {
   res.send({
     "errno": 0, // 注意：值是数字，不能是字符串
     "data": {
-      "url": ret_files[0], // 图片 src ，必须 返回的路径为服务端能访问的路径
+      "url": 'upload/' + ret_files[0], // 图片 src ，必须 返回的路径为服务端能访问的路径
     }
   })
 })

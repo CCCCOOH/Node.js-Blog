@@ -61,7 +61,7 @@ router.get("/search", async (req, res) => {
 
   
   // 查询分页数据
-  let searchSql = " SELECT * FROM `blog` " + whereSqlStr + " ORDER BY `create_time` DESC LIMIT ?,?"
+  let searchSql = " SELECT `id`, `create_time`, `category_id`, `title`, substr(`content`, 0, 50) AS `content` FROM `blog` " + whereSqlStr + " ORDER BY `create_time` DESC LIMIT ?,?"
   let searchSqlParams = params.concat([(page - 1) * pageSize, pageSize]) // 根据每页存放的文章数来决定取哪些
   
   // 查询数据总数

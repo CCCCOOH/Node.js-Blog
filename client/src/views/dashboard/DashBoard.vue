@@ -56,7 +56,6 @@ const toPage = (menu) => {
   color: white;
   background-color: #1B1B1F;
   width: 200px;
-  height: 100vh;
   display: flex;
   padding-top: 10%;
   justify-content: start;

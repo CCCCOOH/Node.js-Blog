@@ -35,6 +35,8 @@ axios.interceptors.request.use((config) => {
   return config;
 })
 
+// 配置全局URL
+axios.defaults.baseURL = "http://localhost:8080"
 
 // 将message注入全局
 
@@ -43,9 +45,7 @@ app.provide("uuid", uuidv4)
 app.provide("message", message)
 app.provide("notification", notification)
 app.provide("dialog", dialog)
+app.provide("server_url", axios.defaults.baseURL)
 
-
-// 配置全局URL
-axios.defaults.baseURL = "http://localhost:8080"
 
 app.mount('#app')

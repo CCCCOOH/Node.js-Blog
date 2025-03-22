@@ -77,6 +77,7 @@ async function login() {
     localStorage.rember = admin.rember; // 无论是否记住都判断，否则会导致在不记住的时候不更新该状态
     router.push("/dashboard")
   }
+
 }
 </script>
 
