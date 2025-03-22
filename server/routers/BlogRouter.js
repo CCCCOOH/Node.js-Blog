@@ -14,6 +14,27 @@ const {
  * 查询博客 
  */
 
+// 查询文章的详细信息
+router.get("/detail", async (req, res) => {
+  let { id } = req.query;
+  const detail_sql = "SELECT * FROM `blog` WHERE `id` = ?"
+  let r = db.async.all(detail_sql, [id])
+  let { err, rows } = await db.async.all(detail_sql, [id])
+  
+  if (err == null) {
+    return res.send({
+      code: 200,
+      msg: "获取成功",
+      rows
+    })
+  } else {
+    return res.send({
+      code: 500,
+      msg: "获取失败",
+    })
+  }
+})
+
 // 查询接口
 router.get("/search", async (req, res) => {
   /**
@@ -134,14 +155,13 @@ router.put("/_token/update", async (req, res) => {
     content,
     id
   } = req.body
-
+  
   const update_sql = "UPDATE `blog` SET `title` = ?, `content` = ?, `category_id` = ? WHERE `id` = ?"
   let params = [title, content, categoryId, id]
   const {
     err,
     rows
   } = await db.async.run(update_sql, params)
-  console.log(err, rows);
   
   if (err == null) {
     // 如果没有错误，表示正确✅

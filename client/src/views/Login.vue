@@ -1,4 +1,5 @@
 <template>
+    <NavBar isLogin="true"/>
     <div class="login-panel">
       <n-card title="登录后台" :segmented="{
         content: true,
@@ -26,6 +27,7 @@
 <script setup>
 import { ref, reactive, inject } from 'vue'
 import { AdminStore } from '../stores/AdminStore';
+import NavBar from '../components/NavBar.vue';
 
 // 引入路由
 import { useRouter, useRoute } from 'vue-router'
@@ -75,7 +77,7 @@ async function login() {
       localStorage.password = admin.password;
     }
     localStorage.rember = admin.rember; // 无论是否记住都判断，否则会导致在不记住的时候不更新该状态
-    router.push("/dashboard")
+    router.push("/dashboard/article")
   }
 
 }

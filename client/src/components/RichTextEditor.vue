@@ -23,7 +23,7 @@
 <script setup>
 import '@wangeditor/editor/dist/css/style.css';
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue';
-import { onBeforeUnmount, ref, shallowRef, defineComponent, inject } from 'vue';
+import { onBeforeUnmount, ref, shallowRef, defineComponent, inject, onMounted } from 'vue';
 
 const editorRef = shallowRef();
 defineComponent(['Editor', 'Toolbar'])
@@ -32,6 +32,16 @@ const props = defineProps({
     type: String,
     default: ''
   }
+})
+
+// 让外部传入的数据能够正常显示
+let initFinished = false;
+
+onMounted(() => {
+  setTimeout(() => {
+    valueHtml.value = props.modelValue;
+    initFinished = true;
+  }, 10);
 })
 
 // 上传图片
@@ -88,6 +98,8 @@ const customAlert = (info, type) => {
 };
 
 const handleChange = (editor) => {
-  emit('update:modelValue', valueHtml.value)
+  if (initFinished) {
+    emit('update:modelValue', valueHtml.value)
+  }
 }
 </script>
